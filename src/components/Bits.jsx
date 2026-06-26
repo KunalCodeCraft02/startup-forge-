@@ -9,7 +9,7 @@ export function Pill({ children, color = "violet" }) {
     slate:  "bg-slate-100/60 text-slate-600 border-slate-300/40",
   };
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase ${map[color] || map.slate}`}>
+    <span className={`inline-flex items-center gap-0.5 sm:gap-1 rounded-full border px-2 sm:px-2.5 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase ${map[color] || map.slate}`}>
       {children}
     </span>
   );
@@ -42,9 +42,9 @@ export function MetricBar({ label, value, color = "violet" }) {
 
 export function Stat({ label, value, sub }) {
   return (
-    <div className="liquid-glass rounded-2xl p-4 lift-3d">
-      <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500 font-semibold">{label}</div>
-      <div className="mt-1.5 text-xl font-bold text-slate-900">{value}</div>
+    <div className="liquid-glass rounded-2xl p-3 sm:p-4 lift-3d">
+      <div className="text-[9px] sm:text-[10px] uppercase tracking-[0.12em] text-slate-500 font-semibold">{label}</div>
+      <div className="mt-1 sm:mt-1.5 text-lg sm:text-xl font-bold text-slate-900">{value}</div>
       {sub && <div className="text-[10px] text-slate-500 mt-0.5">{sub}</div>}
     </div>
   );
@@ -52,11 +52,11 @@ export function Stat({ label, value, sub }) {
 
 export function Section({ eyebrow, title, subtitle, children, action }) {
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
-      <div className="flex items-end justify-between gap-4 mb-10 flex-wrap">
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-16">
+      <div className="flex items-end justify-between gap-3 sm:gap-4 mb-6 sm:mb-10 flex-wrap">
         <div>
-          {eyebrow && <div className="text-[10px] uppercase tracking-[0.2em] text-violet-600 mb-2 font-bold">{eyebrow}</div>}
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">{title}</h2>
+          {eyebrow && <div className="text-[10px] uppercase tracking-[0.2em] text-violet-600 mb-1.5 sm:mb-2 font-bold">{eyebrow}</div>}
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight">{title}</h2>
           {subtitle && <p className="text-slate-500 mt-2 max-w-2xl text-sm leading-relaxed">{subtitle}</p>}
         </div>
         {action}

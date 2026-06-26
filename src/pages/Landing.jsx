@@ -62,7 +62,7 @@ export default function Landing() {
         subtitle="Ranked by opportunity score across all signal sources in the last 30 days."
         action={<Link to="/explore" className="btn-ghost text-sm">See all <FiArrowRight className="h-4 w-4" /></Link>}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {trending.map((idea) => <OpportunityCard key={idea.id} idea={idea} />)}
         </div>
       </Section>
@@ -73,7 +73,7 @@ export default function Landing() {
         subtitle="Opportunities generated from real-time evidence — news, GitHub issues, research papers, and developer discussions."
         action={<Link to="/feed" className="btn-ghost text-sm">Subscribe to feed <FiArrowRight className="h-4 w-4" /></Link>}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {signals.map((idea) => <OpportunityCard key={idea.id} idea={idea} compact />)}
         </div>
       </Section>
@@ -93,18 +93,18 @@ function Hero() {
       <div className="absolute inset-0 grid-bg pointer-events-none" />
       <div className="absolute top-20 left-1/4 w-96 h-96 bg-violet-300/20 rounded-full blur-[120px] pointer-events-none float-3d" />
       <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-300/15 rounded-full blur-[100px] pointer-events-none float-3d" style={{ animationDelay: "-3s" }} />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-20 pb-24 sm:pt-28 sm:pb-32 text-center relative">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-14 pb-16 sm:pt-28 sm:pb-32 text-center relative">
         <motion.div
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2.5 rounded-full border border-violet-200/50 bg-white/50 backdrop-blur-sm px-4 py-2 text-xs text-slate-600"
+          className="inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-violet-200/50 bg-white/50 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs text-slate-600"
         >
           <span className="live-dot" />
-          <span>Pulling from <b className="text-slate-800 font-semibold">live data sources</b> · GitHub, HN, News, Reddit, ArXiv</span>
+          <span>Pulling from <b className="text-slate-800 font-semibold">live data sources</b> <span className="hidden sm:inline">· GitHub, HN, News, Reddit, ArXiv</span></span>
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05 }}
-          className="mt-8 text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]"
+          className="mt-6 sm:mt-8 text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]"
         >
           Discover{" "}
           <span className="gradient-text">startup opportunities</span>
@@ -113,7 +113,7 @@ function Hero() {
 
         <motion.p
           initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
-          className="mt-6 mx-auto max-w-2xl text-slate-500 sm:text-lg leading-relaxed"
+          className="mt-4 sm:mt-6 mx-auto max-w-2xl text-slate-500 text-sm sm:text-lg leading-relaxed"
         >
           StartupForge AI fetches real-time data from the web — news, GitHub repos, Hacker News,
           Reddit, and research papers — then analyzes pain points to generate validated startup opportunities.
@@ -121,13 +121,13 @@ function Hero() {
 
         <motion.div
           initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }}
-          className="mt-10"
+          className="mt-8 sm:mt-10"
         >
           <SearchBar large />
-          <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs">
+          <div className="mt-4 sm:mt-5 flex flex-wrap justify-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
             {["AI", "Healthcare", "Cybersecurity", "SaaS", "Agriculture", "FinTech", "Robotics", "Manufacturing", "Creator Economy", "Education"].map((t) => (
               <Link key={t} to={`/explore?q=${encodeURIComponent(t)}`}
-                    className="rounded-full border border-slate-200/60 bg-white/50 px-3.5 py-1.5 text-slate-500 hover:text-violet-700 hover:bg-violet-50/50 hover:border-violet-200/60 transition-all duration-200 font-medium">
+                    className="rounded-full border border-slate-200/60 bg-white/50 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-slate-500 hover:text-violet-700 hover:bg-violet-50/50 hover:border-violet-200/60 transition-all duration-200 font-medium">
                 {t}
               </Link>
             ))}
@@ -136,7 +136,7 @@ function Hero() {
 
         <motion.div
           initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
+          className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto"
         >
           <DynamicCounter target="2.4M+" label="Signals indexed" sub="last 30 days" />
           <DynamicCounter target="48,910" label="Opportunities" sub="evidence-backed" />
@@ -151,7 +151,7 @@ function Hero() {
 function Categories() {
   return (
     <Section eyebrow="Trending categories" title="Browse by industry" subtitle="One click to generate real-time, evidence-backed opportunities for any vertical.">
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {CATEGORIES.map((c, idx) => (
           <motion.div key={c.name}
             initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -159,12 +159,12 @@ function Categories() {
           >
             <Link to={`/explore?q=${encodeURIComponent(c.name)}`}
                   className="group block card-3d">
-              <div className="card-3d-inner p-5 flex items-center gap-3">
-                <span className={`h-11 w-11 rounded-xl bg-gradient-to-br ${c.color} grid place-items-center text-lg shadow-md border border-white/60`}>
+              <div className="card-3d-inner p-3.5 sm:p-5 flex items-center gap-2.5 sm:gap-3">
+                <span className={`h-9 w-9 sm:h-11 sm:w-11 rounded-xl bg-gradient-to-br ${c.color} grid place-items-center text-base sm:text-lg shadow-md border border-white/60`}>
                   {c.icon}
                 </span>
                 <div className="min-w-0">
-                  <div className="text-sm font-bold text-slate-800">{c.name}</div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-800">{c.name}</div>
                   <div className="text-[10px] text-slate-400 uppercase tracking-wider font-medium">Explore →</div>
                 </div>
               </div>
@@ -187,12 +187,12 @@ function WhySection() {
   ];
   return (
     <Section eyebrow="Why StartupForge" title="An evidence-grade idea engine for founders.">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {FEATURES.map((F) => (
           <div key={F.title} className="card-3d">
-            <div className="card-3d-inner p-6">
-              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-violet-100 to-cyan-50 border border-violet-200/40 grid place-items-center text-violet-500">
-                <F.icon className="h-5 w-5" />
+            <div className="card-3d-inner p-4 sm:p-6">
+              <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-xl bg-gradient-to-br from-violet-100 to-cyan-50 border border-violet-200/40 grid place-items-center text-violet-500">
+                <F.icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <h3 className="mt-4 text-lg font-bold text-slate-800">{F.title}</h3>
               <p className="text-sm text-slate-500 mt-2 leading-relaxed">{F.desc}</p>
@@ -207,7 +207,7 @@ function WhySection() {
 function SourceMarquee({ sources }) {
   const doubled = [...sources, ...sources];
   return (
-    <section className="py-12 border-y border-white/40 bg-white/30">
+    <section className="py-8 sm:py-12 border-y border-white/40 bg-white/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="text-center text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-6 font-semibold">
           Continuously ingesting from live sources
@@ -233,13 +233,13 @@ function HowItWorks() {
   ];
   return (
     <Section eyebrow="How it works" title="From live data to startup in 4 steps.">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         {STEPS.map((S) => (
           <div key={S.n} className="card-3d">
-            <div className="card-3d-inner p-6">
+            <div className="card-3d-inner p-4 sm:p-6">
               <div className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-bold">{S.n}</div>
-              <div className="mt-3 h-11 w-11 rounded-xl bg-gradient-to-br from-violet-100 to-cyan-50 border border-violet-200/40 grid place-items-center text-violet-500">
-                <S.icon className="h-5 w-5" />
+              <div className="mt-2 sm:mt-3 h-9 w-9 sm:h-11 sm:w-11 rounded-xl bg-gradient-to-br from-violet-100 to-cyan-50 border border-violet-200/40 grid place-items-center text-violet-500">
+                <S.icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <h3 className="mt-4 text-lg font-bold text-slate-800">{S.title}</h3>
               <p className="text-sm text-slate-500 mt-2 leading-relaxed">{S.desc}</p>
@@ -254,7 +254,7 @@ function HowItWorks() {
 function DataFlow() {
   return (
     <Section eyebrow="Data pipeline" title="How real data flows into your opportunities.">
-      <div className="liquid-glass rounded-3xl p-7 sm:p-9">
+      <div className="liquid-glass rounded-3xl p-5 sm:p-7 lg:p-9">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xs font-bold text-slate-700 mb-4 uppercase tracking-[0.15em]">Data Sources</h3>
@@ -294,20 +294,20 @@ function DataFlow() {
 
 function CTASection() {
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 pb-20">
-      <div className="relative overflow-hidden liquid-glass rounded-3xl p-12 sm:p-16 text-center">
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 pb-12 sm:pb-20">
+      <div className="relative overflow-hidden liquid-glass rounded-3xl p-8 sm:p-12 lg:p-16 text-center">
         <div className="absolute inset-0 bg-gradient-to-br from-violet-200/20 via-blue-200/15 to-cyan-200/20 pointer-events-none" />
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
         <div className="absolute top-10 left-1/3 w-72 h-72 bg-violet-200/15 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-10 right-1/3 w-64 h-64 bg-cyan-200/10 rounded-full blur-[80px] pointer-events-none" />
         <div className="relative">
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
             Start discovering your <span className="gradient-text">next startup</span>.
           </h2>
-          <p className="mt-4 text-slate-500 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-3 sm:mt-4 text-slate-500 max-w-xl mx-auto leading-relaxed text-sm sm:text-base">
             Free to explore. Search any topic and get real-time, evidence-backed opportunities from live web data.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4 justify-center">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
             <Link to="/explore" className="btn-primary text-sm px-6 py-3">Start exploring <FiArrowRight className="h-4 w-4" /></Link>
             <Link to="/feed" className="btn-ghost text-sm px-6 py-3">Subscribe to feed</Link>
           </div>

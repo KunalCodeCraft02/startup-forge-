@@ -52,7 +52,7 @@ export default function Filters({ value, onChange, total, count }) {
   const reset = () => onChange(DEFAULT_FILTERS);
 
   return (
-    <div className="glass rounded-2xl p-4">
+    <div className="glass rounded-2xl p-3 sm:p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2 text-sm text-slate-600 font-semibold">
           <FiFilter className="h-4 w-4" />

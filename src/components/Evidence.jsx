@@ -24,14 +24,14 @@ export default function EvidenceList({ items }) {
         const Icon = ICONS[e.icon] || FiCpu;
         return (
           <li key={i} className="glass rounded-xl p-3.5 flex items-start gap-3 hover:bg-white/60 transition-all duration-200 group/evidence">
-            <span className="mt-0.5 h-9 w-9 shrink-0 rounded-xl bg-violet-50/80 border border-violet-200/40 grid place-items-center text-violet-500 group-hover/evidence:text-violet-600 transition-colors">
-              <Icon className="h-4 w-4" />
+            <span className="mt-0.5 h-8 w-8 sm:h-9 sm:w-9 shrink-0 rounded-xl bg-violet-50/80 border border-violet-200/40 grid place-items-center text-violet-500 group-hover/evidence:text-violet-600 transition-colors">
+              <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </span>
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2 text-[10px] text-slate-400">
+              <div className="flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] text-slate-400 flex-wrap">
                 <Pill color="slate">{e.type}</Pill>
-                <span>·</span>
-                <span>{new Date(e.date).toLocaleDateString()}</span>
+                <span className="hidden sm:inline">·</span>
+                <span className="hidden sm:inline">{new Date(e.date).toLocaleDateString()}</span>
                 <span>·</span>
                 <span>{Math.round(e.relevance * 100)}% relevance</span>
               </div>

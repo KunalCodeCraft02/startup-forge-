@@ -63,7 +63,7 @@ export default function Explore() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
       <div className="text-center mb-10">
         <div className="text-[10px] uppercase tracking-[0.2em] text-violet-600 mb-2 font-bold">Search</div>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900">
+        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight text-slate-900">
           {q ? <>Opportunities for <span className="gradient-text">"{q}"</span></> : "What opportunity should we forge?"}
         </h1>
         <p className="text-slate-500 mt-3 max-w-xl mx-auto leading-relaxed text-sm">
@@ -77,22 +77,24 @@ export default function Explore() {
       {!q ? <EmptyState /> : loading ? <LoadingState stage={stage} stageText={stageText} /> : (
         <>
           {metadata && <DataSourceBanner metadata={metadata} dataSource={dataSource} />}
-          <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5 gap-3">
             <div className="inline-flex items-center gap-1 p-1 rounded-xl border border-slate-200/60 bg-white/50">
               <ToggleBtn active={view === "deck"} onClick={() => setView("deck")} icon={<FiLayers className="h-4 w-4" />} label="Swipe" />
               <ToggleBtn active={view === "grid"} onClick={() => setView("grid")} icon={<FiGrid className="h-4 w-4" />} label="Grid" />
             </div>
-            <div className="text-[11px] text-slate-400 font-medium">
-              <FiZap className="inline h-3 w-3" /> {filtered.length} opportunities · {totalSignals} signals
+            <div className="flex items-center gap-3 flex-wrap">
+              <div className="text-[11px] text-slate-400 font-medium">
+                <FiZap className="inline h-3 w-3" /> {filtered.length} opportunities · {totalSignals} signals
+              </div>
+              <button onClick={() => setBatch((b) => b + 1)} className="btn-ghost text-xs sm:text-sm">
+                <FiRefreshCw className="h-4 w-4" /> Re-generate
+              </button>
             </div>
-            <button onClick={() => setBatch((b) => b + 1)} className="btn-ghost text-sm">
-              <FiRefreshCw className="h-4 w-4" /> Re-generate
-            </button>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-4 sm:gap-6">
             <aside className="lg:sticky lg:top-20 h-fit">
               <Filters value={filters} onChange={setFilters} total={ideas.length} count={filtered.length} />
-              <TipsBox dataSource={dataSource} />
+              <div className="hidden lg:block"><TipsBox dataSource={dataSource} /></div>
             </aside>
             <div>
               <AnimatePresence mode="wait">
@@ -102,7 +104,7 @@ export default function Explore() {
                   </motion.div>
                 ) : (
                   <motion.div key="grid" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                              className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                              className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
                     {filtered.map((idea) => <OpportunityCard key={idea.id} idea={idea} />)}
                   </motion.div>
                 )}
@@ -149,7 +151,7 @@ function ToggleBtn({ active, onClick, icon, label }) {
 
 function LoadingState({ stage, stageText }) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-4 sm:gap-6">
       <div className="glass rounded-2xl p-5">
         <div className="text-[10px] uppercase tracking-[0.15em] text-slate-500 font-semibold">Live data pipeline</div>
         <ul className="mt-4 space-y-2.5">
@@ -166,7 +168,7 @@ function LoadingState({ stage, stageText }) {
           </div>
         )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
         {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
       </div>
     </div>
@@ -176,13 +178,13 @@ function LoadingState({ stage, stageText }) {
 function EmptyState() {
   const examples = ["AI for legal contracts", "Cybersecurity for SMBs", "Climate tech for buildings", "Vertical SaaS for dentists", "FinTech for freelancers", "AI agents for healthcare"];
   return (
-    <div className="text-center py-14">
-      <div className="text-5xl mb-4">🔍</div>
-      <p className="text-slate-500 mt-4 max-w-lg mx-auto leading-relaxed">Try a topic, industry or audience — get evidence-backed opportunities from real web data.</p>
-      <div className="mt-2 text-xs text-slate-400">Powered by GitHub, Hacker News, Google News, Reddit, and ArXiv</div>
-      <div className="mt-6 flex flex-wrap gap-2.5 justify-center">
+      <div className="text-center py-10 sm:py-14">
+        <div className="text-4xl sm:text-5xl mb-4">🔍</div>
+        <p className="text-slate-500 mt-4 max-w-lg mx-auto leading-relaxed text-sm sm:text-base">Try a topic, industry or audience — get evidence-backed opportunities from real web data.</p>
+        <div className="mt-2 text-xs text-slate-400">Powered by GitHub, Hacker News, Google News, Reddit, and ArXiv</div>
+        <div className="mt-5 sm:mt-6 flex flex-wrap gap-2 sm:gap-2.5 justify-center">
         {examples.map((e) => (
-          <a key={e} href={`?q=${encodeURIComponent(e)}`} className="rounded-full border border-slate-200/60 bg-white/50 px-4 py-2 text-xs text-slate-500 hover:text-violet-600 hover:bg-violet-50/40 transition-all duration-200 font-medium">
+          <a key={e} href={`?q=${encodeURIComponent(e)}`} className="rounded-full border border-slate-200/60 bg-white/50 px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs text-slate-500 hover:text-violet-600 hover:bg-violet-50/40 transition-all duration-200 font-medium">
             {e}
           </a>
         ))}

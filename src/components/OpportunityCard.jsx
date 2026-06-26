@@ -20,7 +20,7 @@ export default function OpportunityCard({ idea, compact = false }) {
   return (
     <Link to={`/idea/${idea.id}`} state={{ idea }} className="block group">
       <article className="card-3d h-full">
-        <div className="card-3d-inner p-5 h-full flex flex-col">
+        <div className="card-3d-inner p-4 sm:p-5 h-full flex flex-col">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
               <div className="flex items-center gap-2 mb-2">
@@ -31,7 +31,7 @@ export default function OpportunityCard({ idea, compact = false }) {
                   {new Date(idea.generatedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
                 </Pill>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 group-hover:text-violet-700 transition-colors duration-300">{idea.name}</h3>
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-violet-700 transition-colors duration-300">{idea.name}</h3>
               <p className="text-sm text-slate-500 line-clamp-2 mt-1.5 leading-relaxed">{idea.problem}</p>
             </div>
             <button onClick={toggle}

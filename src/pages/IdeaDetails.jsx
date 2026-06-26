@@ -57,19 +57,19 @@ export default function IdeaDetails() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
-      <div className="flex items-center justify-between gap-3 no-print mb-5">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 no-print mb-5">
         <button onClick={() => navigate(-1)} className="btn-ghost text-sm"><FiArrowLeft className="h-4 w-4" /> Back</button>
         <div className="flex flex-wrap gap-2">
           <button onClick={() => { saved$ ? unsaveIdea(idea.id) : saveIdea(idea); toast.success(saved$ ? "Removed" : "Saved"); }}
-            className={`btn-ghost text-sm ${saved$ ? "bg-violet-100/60 border-violet-300/40 text-violet-600" : ""}`}>
+            className={`btn-ghost text-xs sm:text-sm ${saved$ ? "bg-violet-100/60 border-violet-300/40 text-violet-600" : ""}`}>
             <FiBookmark className="h-4 w-4" fill={saved$ ? "currentColor" : "none"} /> {saved$ ? "Saved" : "Save"}
           </button>
-          <button onClick={() => { navigator.clipboard?.writeText(window.location.href); toast.success("Link copied"); }} className="btn-ghost text-sm"><FiShare2 className="h-4 w-4" /> Share</button>
-          <button onClick={() => window.print()} className="btn-ghost text-sm"><FiPrinter className="h-4 w-4" /> PDF</button>
+          <button onClick={() => { navigator.clipboard?.writeText(window.location.href); toast.success("Link copied"); }} className="btn-ghost text-xs sm:text-sm"><FiShare2 className="h-4 w-4" /> Share</button>
+          <button onClick={() => window.print()} className="btn-ghost text-xs sm:text-sm"><FiPrinter className="h-4 w-4" /> PDF</button>
         </div>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="liquid-glass rounded-3xl p-7 sm:p-9 relative overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="liquid-glass rounded-3xl p-5 sm:p-7 lg:p-9 relative overflow-hidden">
         <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-br from-violet-200/30 via-blue-200/20 to-cyan-200/25 pointer-events-none" />
         <div className="absolute inset-x-0 top-0 h-36 grid-bg opacity-30 pointer-events-none" />
         <div className="absolute top-10 left-1/4 w-64 h-64 bg-violet-200/10 rounded-full blur-[80px] pointer-events-none" />
@@ -81,36 +81,36 @@ export default function IdeaDetails() {
             <Pill color="slate"><FiCalendar className="h-3 w-3" /> {new Date(idea.generatedAt).toLocaleDateString()}</Pill>
             {idea._signalCount > 0 && <Pill color="cyan"><FiZap className="h-3 w-3" /> {idea._signalCount} signals</Pill>}
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">{idea.name}</h1>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900">{idea.name}</h1>
           <p className="text-slate-500 mt-2 max-w-3xl leading-relaxed">{idea.tagline}</p>
-          <div className="mt-7 grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="mt-5 sm:mt-7 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
             <Stat label="Opportunity score" value={`${idea.opportunityScore}/100`} sub={idea.aiRecommendation.split(".")[0]} />
             <Stat label="AI confidence" value={`${idea.aiConfidence}%`} sub="Across all signals" />
             <Stat label="Market (SAM)" value={idea.marketSize.sam} sub={`TAM ${idea.marketSize.tam}`} />
             <Stat label="Est. ARR" value={idea.estAnnualRevenue} sub={`MRR ${idea.estMonthlyRevenue}`} />
           </div>
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
             <MetricBar label="Opportunity" value={idea.opportunityScore} color="violet" />
             <MetricBar label="AI Confidence" value={idea.aiConfidence} color="cyan" />
             <MetricBar label="Competition" value={idea.competitionPct} color="rose" />
             <MetricBar label="Difficulty" value={idea.difficultyPct} color="amber" />
           </div>
-          <div className="mt-6 flex flex-wrap gap-2 no-print">
-            <button onClick={generatePlan} disabled={planLoading} className="btn-primary text-sm"><FiFileText className="h-4 w-4" />{planLoading ? "Generating…" : plan ? "Re-generate Business Plan" : "Generate Business Plan"}</button>
-            <button onClick={generateMvp} disabled={mvpLoading} className="btn-ghost text-sm"><FiCode className="h-4 w-4" />{mvpLoading ? "Generating…" : mvp ? "Re-generate MVP Spec" : "Generate MVP Spec"}</button>
+          <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-2 no-print">
+            <button onClick={generatePlan} disabled={planLoading} className="btn-primary text-xs sm:text-sm"><FiFileText className="h-4 w-4" />{planLoading ? "Generating…" : plan ? "Re-generate Business Plan" : "Generate Business Plan"}</button>
+            <button onClick={generateMvp} disabled={mvpLoading} className="btn-ghost text-xs sm:text-sm"><FiCode className="h-4 w-4" />{mvpLoading ? "Generating…" : mvp ? "Re-generate MVP Spec" : "Generate MVP Spec"}</button>
           </div>
         </div>
       </motion.div>
 
       <div className="mt-6 sticky top-16 z-20 no-print">
-        <div className="glass rounded-2xl p-1.5 inline-flex flex-wrap gap-1">
+        <div className="glass rounded-2xl p-1.5 inline-flex gap-1 overflow-x-auto no-scrollbar max-w-full">
           {[["overview","Overview"],["market","Market"],["competition","Competition"],["tech","Tech & MVP"],["gtm","GTM & Funding"],["risks","Risks & SWOT"],["evidence","Evidence"],["plan","Business Plan"],["mvp","MVP Spec"]].map(([k, label]) => (
-            <button key={k} onClick={() => setTab(k)} className={`rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${tab === k ? "bg-violet-100/60 text-violet-700 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}>{label}</button>
+            <button key={k} onClick={() => setTab(k)} className={`rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 ${tab === k ? "bg-violet-100/60 text-violet-700 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}>{label}</button>
           ))}
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <div className="lg:col-span-2 space-y-5">
           {tab === "overview" && <OverviewTab idea={idea} />}
           {tab === "market" && <MarketTab idea={idea} />}

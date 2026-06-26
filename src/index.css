@@ -320,3 +320,33 @@ body {
   .gradient-text { color: #4338ca !important; -webkit-text-fill-color: #4338ca !important; }
   .aurora { display: none !important; }
 }
+
+/* ── Mobile Responsive Helpers ── */
+@media (max-width: 640px) {
+  .card-3d:hover .card-3d-inner {
+    transform: none;
+  }
+  .lift-3d:hover {
+    transform: none;
+  }
+  .float-3d {
+    animation: none;
+  }
+}
+
+/* ── Touch-friendly tap targets ── */
+@media (pointer: coarse) {
+  .btn-primary,
+  .btn-ghost {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ── Smooth scroll for mobile tab bars ── */
+@media (max-width: 1024px) {
+  .no-scrollbar {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}

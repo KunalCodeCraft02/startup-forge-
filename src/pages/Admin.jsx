@@ -57,15 +57,15 @@ export default function Admin() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-violet-600 mb-1 font-bold"><FiShield className="h-3.5 w-3.5" /> Admin</div>
-          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Data pipeline dashboard</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Data pipeline dashboard</h1>
           <p className="text-slate-500 mt-1">Live web data sources, analysis engine, and system status.</p>
         </div>
         <button onClick={() => { adminLogout(); toast.success("Logged out"); }} className="btn-ghost text-sm text-rose-500 border-rose-200/50 hover:bg-rose-50/40">Sign out</button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
         <Stat label="Data sources" value={`${SOURCES.length}`} sub="live APIs" />
         <Stat label="Source types" value="5" sub="GitHub, HN, News, Reddit, ArXiv" />
         <Stat label="Analysis" value="Real-time" sub="pain point extraction" />

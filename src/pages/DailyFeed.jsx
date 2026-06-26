@@ -23,17 +23,17 @@ export default function DailyFeed() {
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-14">
       <div className="text-center">
         <div className="text-[10px] uppercase tracking-[0.2em] text-violet-600 mb-2 font-bold">Daily Opportunity Feed</div>
-        <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">A startup brief, in your inbox at 7am.</h1>
-        <p className="text-slate-500 mt-4 max-w-2xl mx-auto leading-relaxed">Top 10 startup ideas from real-time web data, trending industries, research papers, and AI insights — every morning.</p>
-        <form onSubmit={subscribe} className="mt-8 mx-auto max-w-lg liquid-glass rounded-2xl p-2 flex items-center gap-2">
-          <FiMail className="h-5 w-5 text-slate-400 ml-2" />
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="founder@yourstartup.com" className="flex-1 bg-transparent outline-none text-slate-800 placeholder:text-slate-400/70 py-2 text-sm font-medium" />
-          <button type="submit" className="btn-primary text-sm">{subscribed ? <><FiCheck className="h-4 w-4" /> Subscribed</> : "Subscribe"}</button>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">A startup brief, in your inbox at 7am.</h1>
+        <p className="text-slate-500 mt-3 sm:mt-4 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base">Top 10 startup ideas from real-time web data, trending industries, research papers, and AI insights — every morning.</p>
+        <form onSubmit={subscribe} className="mt-6 sm:mt-8 mx-auto max-w-lg liquid-glass rounded-2xl p-1.5 sm:p-2 flex items-center gap-2">
+          <FiMail className="h-5 w-5 text-slate-400 ml-1 sm:ml-2 shrink-0" />
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="founder@yourstartup.com" className="flex-1 min-w-0 bg-transparent outline-none text-slate-800 placeholder:text-slate-400/70 py-2 text-sm font-medium" />
+          <button type="submit" className="btn-primary text-xs sm:text-sm shrink-0 px-3 sm:px-4">{subscribed ? <><FiCheck className="h-4 w-4" /> Subscribed</> : "Subscribe"}</button>
         </form>
         <div className="text-xs text-slate-400 mt-2.5">No spam. One-click unsubscribe.</div>
       </div>
-      <div className="mt-14 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
-        <div className="liquid-glass rounded-3xl p-7 sm:p-9">
+      <div className="mt-10 sm:mt-14 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 sm:gap-6">
+        <div className="liquid-glass rounded-3xl p-5 sm:p-7 lg:p-9">
           <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
             <div><div className="text-[10px] uppercase tracking-[0.15em] text-slate-400 font-semibold">Preview · Tomorrow's edition</div><h2 className="text-2xl font-bold text-slate-900 mt-1">StartupForge AI · Daily Brief</h2></div>
             <Pill color="cyan"><FiClock className="h-3 w-3" /> 5 min read</Pill>

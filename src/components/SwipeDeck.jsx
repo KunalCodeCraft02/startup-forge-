@@ -36,7 +36,7 @@ export default function SwipeDeck({ items, onEmpty }) {
 
   if (!top) {
     return (
-      <div className="glass-strong rounded-3xl p-12 text-center max-w-md mx-auto">
+      <div className="glass-strong rounded-3xl p-8 sm:p-12 text-center max-w-md mx-auto">
         <div className="text-5xl mb-4">🎯</div>
         <h3 className="text-xl font-bold text-slate-900">Reviewed every opportunity</h3>
         <p className="text-slate-500 mt-2 text-sm leading-relaxed">Refine your search or generate a fresh batch.</p>
@@ -49,7 +49,7 @@ export default function SwipeDeck({ items, onEmpty }) {
 
   return (
     <div className="relative w-full max-w-md mx-auto">
-      <div className="relative h-[640px]" style={{ perspective: "1200px" }}>
+      <div className="relative h-[520px] sm:h-[640px]" style={{ perspective: "1200px" }}>
         {after && (
           <div className="absolute inset-0 origin-bottom" style={{ transform: "scale(.90) translateY(32px) translateZ(-40px)" }}>
             <CardShell><div className="absolute inset-0 bg-white/30 rounded-3xl" /></CardShell>
@@ -73,25 +73,25 @@ export default function SwipeDeck({ items, onEmpty }) {
         </AnimatePresence>
       </div>
 
-      <div className="mt-8 flex items-center justify-center gap-4">
-        <button onClick={() => advance("left")} className="h-14 w-14 rounded-full glass-strong flex items-center justify-center text-rose-400 hover:text-rose-500 hover:border-rose-300/50 transition-all duration-200 hover:scale-105 shadow-md" title="Skip">
-          <FiX className="h-6 w-6" />
+      <div className="mt-6 sm:mt-8 flex items-center justify-center gap-3 sm:gap-4">
+        <button onClick={() => advance("left")} className="h-12 w-12 sm:h-14 sm:w-14 rounded-full glass-strong flex items-center justify-center text-rose-400 hover:text-rose-500 hover:border-rose-300/50 transition-all duration-200 hover:scale-105 shadow-md active:scale-95" title="Skip">
+          <FiX className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
-        <button onClick={undo} disabled={!history.length} className="h-11 w-11 rounded-full glass-strong flex items-center justify-center text-slate-400 disabled:opacity-20 transition-all hover:scale-105 shadow-sm" title="Undo">
+        <button onClick={undo} disabled={!history.length} className="h-10 w-10 sm:h-11 sm:w-11 rounded-full glass-strong flex items-center justify-center text-slate-400 disabled:opacity-20 transition-all hover:scale-105 shadow-sm active:scale-95" title="Undo">
           <FiRotateCcw className="h-4 w-4" />
         </button>
-        <Link to={`/idea/${top.id}`} state={{ idea: top }} className="h-11 w-11 rounded-full glass-strong flex items-center justify-center text-violet-500 hover:text-violet-600 transition-all hover:scale-105 shadow-sm" title="View details">
-          <FiArrowRight className="h-5 w-5" />
+        <Link to={`/idea/${top.id}`} state={{ idea: top }} className="h-10 w-10 sm:h-11 sm:w-11 rounded-full glass-strong flex items-center justify-center text-violet-500 hover:text-violet-600 transition-all hover:scale-105 shadow-sm active:scale-95" title="View details">
+          <FiArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
         </Link>
-        <button onClick={() => { navigator.clipboard?.writeText(`${top.name} — ${top.tagline}`); toast.success("Copied"); }} className="h-11 w-11 rounded-full glass-strong flex items-center justify-center text-slate-400 hover:text-slate-600 transition-all hover:scale-105 shadow-sm" title="Share">
-          <FiShare2 className="h-5 w-5" />
+        <button onClick={() => { navigator.clipboard?.writeText(`${top.name} — ${top.tagline}`); toast.success("Copied"); }} className="h-10 w-10 sm:h-11 sm:w-11 rounded-full glass-strong flex items-center justify-center text-slate-400 hover:text-slate-600 transition-all hover:scale-105 shadow-sm active:scale-95" title="Share">
+          <FiShare2 className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
-        <button onClick={() => advance("right")} className="h-14 w-14 rounded-full glass-strong flex items-center justify-center text-emerald-400 hover:text-emerald-500 hover:border-emerald-300/50 transition-all duration-200 hover:scale-105 shadow-md" title="Save">
-          <FiHeart className="h-6 w-6" />
+        <button onClick={() => advance("right")} className="h-12 w-12 sm:h-14 sm:w-14 rounded-full glass-strong flex items-center justify-center text-emerald-400 hover:text-emerald-500 hover:border-emerald-300/50 transition-all duration-200 hover:scale-105 shadow-md active:scale-95" title="Save">
+          <FiHeart className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
       </div>
 
-      <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">
+      <div className="mt-3 sm:mt-4 text-center text-[10px] sm:text-[11px] text-slate-400 font-medium">
         {stack.length} remaining · Swipe right to save, left to skip
       </div>
     </div>
@@ -149,39 +149,39 @@ function SwipeCard({ idea, onSwipe }) {
         SKIP
       </motion.div>
 
-      <div className="relative p-6 flex flex-col h-full">
+      <div className="relative p-4 sm:p-6 flex flex-col h-full">
         <div className="flex items-center gap-2">
           <Pill color="violet">{idea.industry}</Pill>
           <Pill color="cyan"><FiZap className="h-3 w-3" /> {idea.evidence.length} signals</Pill>
           <Pill color="slate"><FiCalendar className="h-3 w-3" /> {new Date(idea.generatedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</Pill>
         </div>
 
-        <h3 className="mt-3 text-2xl font-bold text-slate-900 tracking-tight">{idea.name}</h3>
+        <h3 className="mt-2 sm:mt-3 text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">{idea.name}</h3>
 
-        <div className="mt-4 space-y-3">
+        <div className="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
           <Block label="Problem">{idea.problem}</Block>
           <Block label="Solution">{idea.solution}</Block>
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-2 sm:gap-3">
           <MetricBar label="Opportunity"  value={idea.opportunityScore} color="violet" />
           <MetricBar label="AI Confidence" value={idea.aiConfidence}    color="cyan" />
           <MetricBar label="Competition"   value={idea.competitionPct}  color="rose" />
           <MetricBar label="Difficulty"    value={idea.difficultyPct}   color="amber" />
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-2 text-[11px]">
+        <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-1.5 sm:gap-2 text-[10px] sm:text-[11px]">
           <Mini icon={<FiTarget />} label="Market" value={idea.marketSize.sam} />
           <Mini icon={<FiDollarSign />} label="ARR" value={idea.estAnnualRevenue} />
           <Mini icon={<FiTrendingUp />} label="Growth" value={`${idea.growthRate}% YoY`} />
           <Mini icon={<FiClock />}    label="Build" value={`${idea.timelineWeeks} weeks`} />
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-1.5">
+        <div className="mt-3 sm:mt-4 flex flex-wrap gap-1 sm:gap-1.5">
           {idea.tags.slice(0, 6).map((t) => <Pill key={t} color="blue">{t}</Pill>)}
         </div>
 
-        <Link to={`/idea/${idea.id}`} state={{ idea }} className="btn-primary mt-5 w-full justify-center text-sm">
+        <Link to={`/idea/${idea.id}`} state={{ idea }} className="btn-primary mt-4 sm:mt-5 w-full justify-center text-xs sm:text-sm py-2.5 sm:py-3">
           Open full report <FiArrowRight className="h-4 w-4" />
         </Link>
       </div>

@@ -5,7 +5,7 @@ import { FiGithub, FiTwitter, FiLinkedin } from "react-icons/fi";
 export default function Footer() {
   return (
     <footer className="mt-24 border-t border-white/40 bg-white/30">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid grid-cols-2 md:grid-cols-5 gap-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8">
         <div className="col-span-2">
           <Logo />
           <p className="mt-4 text-sm text-slate-500 max-w-sm leading-relaxed">

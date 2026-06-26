@@ -13,6 +13,106 @@ const INDUSTRIES = [
   "Creator Economy", "DevTools", "LegalTech", "Logistics", "Biotech",
 ];
 
+// ── Industry-specific government schemes & funds ──
+
+const GOVERNMENT_SCHEMES = {
+  AI: [
+    { name: "IndiaAI Mission", country: "India", amount: "Up to ₹500 Cr", desc: "Government of India initiative to build AI compute infrastructure and support AI startups", url: "https://indiaai.gov.in" },
+    { name: "Startup India Seed Fund", country: "India", amount: "Up to ₹20 Lakh", desc: "Financial assistance for proof of concept, prototype development, and product trials", url: "https://www.startupindia.gov.in" },
+    { name: "SBIR/STTR (US)", country: "US", amount: "$150K-$1.5M", desc: "Small Business Innovation Research grants for AI/ML research and development", url: "https://www.sbir.gov" },
+    { name: "Horizon Europe — AI", country: "EU", amount: "Up to €2M", desc: "EU funding for trustworthy AI research and innovation projects", url: "https://ec.europa.eu/horizon-europe" },
+    { name: "National AI Strategy Funds", country: "UK", amount: "Up to £500K", desc: "UK government AI sector deals and innovation grants", url: "https://www.gov.uk/government/publications/uk-ai-sector-deal" },
+  ],
+  Healthcare: [
+    { name: "Biotechnology Industry Research Assistance Council (BIRAC)", country: "India", amount: "Up to ₹3 Cr", desc: "Government of India fund for biotech and healthcare startups", url: "https://www.birac.org.in" },
+    { name: "SBIR Phase I/II (Health)", country: "US", amount: "$275K-$1.7M", desc: "NIH and HHS grants for healthcare innovation and medical devices", url: "https://www.sbir.gov" },
+    { name: "Horizon Europe — Health", country: "EU", amount: "Up to €3M", desc: "EU funding for digital health, personalised medicine, and health data", url: "https://ec.europa.eu/horizon-europe" },
+    { name: "AMRIT (India)", country: "India", amount: "Up to ₹1 Cr", desc: "Funding for affordable medical devices and diagnostics", url: "https://www.startupindia.gov.in" },
+    { name: "BARDA (US)", country: "US", amount: "Up to $50M", desc: "Biomedical Advanced Research and Development Authority funding", url: "https://www.phe.gov/about/barda" },
+  ],
+  FinTech: [
+    { name: "RBI Regulatory Sandbox", country: "India", amount: "License + Support", desc: "Reserve Bank of India sandbox for testing FinTech innovations", url: "https://rbi.org.in" },
+    { name: "Startup India Seed Fund", country: "India", amount: "Up to ₹20 Lakh", desc: "Seed funding for early-stage FinTech startups", url: "https://www.startupindia.gov.in" },
+    { name: "CFPB Innovation Sandbox (US)", country: "US", amount: "Regulatory Relief", desc: "Consumer Financial Protection Bureau sandbox for FinTech testing", url: "https://www.consumerfinance.gov" },
+    { name: "Horizon Europe — Digital Finance", country: "EU", amount: "Up to €2M", desc: "EU grants for digital finance and blockchain innovation", url: "https://ec.europa.eu/horizon-europe" },
+    { name: "MeitY (India)", country: "India", amount: "Up to ₹50 Lakh", desc: "Ministry of Electronics and IT funding for digital payment solutions", url: "https://www.meity.gov.in" },
+  ],
+  Cybersecurity: [
+    { name: "DST Cybersecurity Grants (India)", country: "India", amount: "Up to ₹1 Cr", desc: "Department of Science and Technology grants for cybersecurity R&D", url: "https://dst.gov.in" },
+    { name: "DHS CISA (US)", country: "US", amount: "Up to $500K", desc: "Cybersecurity and Infrastructure Security Agency innovation grants", url: "https://www.cisa.gov" },
+    { name: "Horizon Europe — Cybersecurity", country: "EU", amount: "Up to €2M", desc: "EU Digital Europe Programme for cybersecurity solutions", url: "https://digital-strategy.ec.europa.eu/en/programme/digital-europe-programme" },
+    { name: "NASSCOM Cybersecurity (India)", country: "India", amount: "Varies", desc: "Industry body support and government-backed cybersecurity incubation", url: "https://nasscom.in" },
+    { name: "Cyber Grant (UK)", country: "UK", amount: "Up to £100K", desc: "UK National Cyber Security Centre innovation funding", url: "https://www.ncsc.gov.uk" },
+  ],
+  SaaS: [
+    { name: "Startup India Seed Fund", country: "India", amount: "Up to ₹20 Lakh", desc: "Seed stage funding for SaaS and software product startups", url: "https://www.startupindia.gov.in" },
+    { name: "Digital India Programme", country: "India", amount: "Various", desc: "Government support for SaaS solutions in digital transformation", url: "https://digitalindia.gov.in" },
+    { name: "SBIR (US)", country: "US", amount: "$150K-$1.5M", desc: "Innovation grants for enterprise software and cloud solutions", url: "https://www.sbir.gov" },
+    { name: "Horizon Europe — Digital", country: "EU", amount: "Up to €2M", desc: "EU funding for cloud, SaaS, and digital infrastructure", url: "https://ec.europa.eu/horizon-europe" },
+  ],
+  Robotics: [
+    { name: "DST Robotics (India)", country: "India", amount: "Up to ₹2 Cr", desc: "Government grants for robotics research and commercialisation", url: "https://dst.gov.in" },
+    { name: "NSF Robotics (US)", country: "US", amount: "$500K-$2M", desc: "National Science Foundation grants for robotics innovation", url: "https://www.nsf.gov" },
+    { name: "Horizon Europe — Robotics", country: "EU", amount: "Up to €3M", desc: "EU funding for industrial and service robotics", url: "https://ec.europa.eu/horizon-europe" },
+    { name: "Make in India — Robotics", country: "India", amount: "Tax Incentives", desc: "PLI scheme benefits for advanced manufacturing and robotics", url: "https://www.makeinindia.com" },
+  ],
+  Agriculture: [
+    { name: "RKVY (India)", country: "India", amount: "Up to ₹50 Lakh", desc: "Rashtriya Krishi Vikas Yojana for agri-tech innovation", url: "https://rkvy.nic.in" },
+    { name: "USDA SBIR (US)", country: "US", amount: "$100K-$1M", desc: "USDA Small Business Innovation Research for agriculture", url: "https://www.sbir.gov" },
+    { name: "Horizon Europe — Agriculture", country: "EU", amount: "Up to €2M", desc: "EU Farm to Fork strategy and CAP innovation funding", url: "https://ec.europa.eu/horizon-europe" },
+    { name: "NABARD (India)", country: "India", amount: "Up to ₹25 Lakh", desc: "National Bank for Agriculture and Rural Development startup fund", url: "https://www.nabard.org" },
+  ],
+  Education: [
+    { name: "DIKSHA (India)", country: "India", amount: "Partnership", desc: "Government digital education platform for ed-tech partnerships", url: "https://diksha.gov.in" },
+    { name: "NSF Education (US)", country: "US", amount: "$200K-$1M", desc: "National Science Foundation grants for education technology", url: "https://www.nsf.gov" },
+    { name: "Horizon Europe — Education", country: "EU", amount: "Up to €1.5M", desc: "Erasmus+ and EU education innovation programmes", url: "https://ec.europa.eu/programmes/erasmus-plus" },
+    { name: "Atal Innovation Mission (India)", country: "India", amount: "Up to ₹10 Lakh", desc: "NITI Aayog funding for school and university ed-tech solutions", url: "https://aim.gov.in" },
+  ],
+  Manufacturing: [
+    { name: "PLI Scheme (India)", country: "India", amount: "4-6% Incentive", desc: "Production Linked Incentive for electronics, auto, and pharma manufacturing", url: "https://www.makeinindia.com" },
+    { name: "Manufacturing USA (US)", country: "US", amount: "Up to $2M", desc: "Federal institutes for manufacturing innovation", url: "https://manufacturingusa.com" },
+    { name: "Horizon Europe — Manufacturing", country: "EU", amount: "Up to €3M", desc: "EU funding for Industry 4.0 and smart manufacturing", url: "https://ec.europa.eu/horizon-europe" },
+    { name: "SIDBI (India)", country: "India", amount: "Up to ₹1 Cr", desc: "Small Industries Development Bank of India manufacturing fund", url: "https://www.sidbi.in" },
+  ],
+  "Climate Tech": [
+    { name: "National Clean Energy Fund (India)", country: "India", amount: "Up to ₹5 Cr", desc: "Government fund for clean energy and climate innovation", url: "https://mnre.gov.in" },
+    { name: "DOE ARPA-E (US)", country: "US", amount: "$500K-$10M", desc: "Advanced Research Projects Agency for energy innovation", url: "https://arpa-e.energy.gov" },
+    { name: "Horizon Europe — Green Deal", country: "EU", amount: "Up to €5M", desc: "EU Green Deal funding for climate and sustainability projects", url: "https://ec.europa.eu/horizon-europe" },
+    { name: "Green Climate Fund", country: "Global", amount: "Up to $10M", desc: "UN-backed fund for climate solutions in developing countries", url: "https://www.greenclimate.fund" },
+    { name: "NABARD Green Finance", country: "India", amount: "Up to ₹1 Cr", desc: "NABARD funding for sustainable agriculture and climate projects", url: "https://www.nabard.org" },
+  ],
+  "Creator Economy": [
+    { name: "Startup India Seed Fund", country: "India", amount: "Up to ₹20 Lakh", desc: "Seed funding for digital content and creator platforms", url: "https://www.startupindia.gov.in" },
+    { name: "SBIR (US)", country: "US", amount: "$150K-$1M", desc: "Innovation grants for digital media and content technology", url: "https://www.sbir.gov" },
+  ],
+  DevTools: [
+    { name: "Startup India Seed Fund", country: "India", amount: "Up to ₹20 Lakh", desc: "Seed funding for developer tools and open-source projects", url: "https://www.startupindia.gov.in" },
+    { name: "NSF Software (US)", country: "US", amount: "$200K-$1M", desc: "National Science Foundation grants for software engineering research", url: "https://www.nsf.gov" },
+    { name: "Horizon Europe — Digital", country: "EU", amount: "Up to €2M", desc: "EU funding for open-source and developer infrastructure", url: "https://ec.europa.eu/horizon-europe" },
+  ],
+  LegalTech: [
+    { name: "DILIP (India)", country: "India", amount: "Up to ₹50 Lakh", desc: "Department of Legal Affairs tech modernisation fund", url: "https://legalaffairs.gov.in" },
+    { name: "SBIR Legal Tech (US)", country: "US", amount: "$150K-$1M", desc: "DOJ and NSF grants for legal technology innovation", url: "https://www.sbir.gov" },
+    { name: "Horizon Europe — Justice", country: "EU", amount: "Up to €1.5M", desc: "EU funding for digital justice and legal tech solutions", url: "https://ec.europa.eu/horizon-europe" },
+  ],
+  Logistics: [
+    { name: "Sagarmala (India)", country: "India", amount: "Up to ₹2 Cr", desc: "Port-led development and logistics efficiency grants", url: "https://www.sagarmala.gov.in" },
+    { name: "USDOT TIGER (US)", country: "US", amount: "$1M-$25M", desc: "Transportation Investment Generating Economic Recovery grants", url: "https://www.transportation.gov" },
+    { name: "Horizon Europe — Mobility", country: "EU", amount: "Up to €3M", desc: "EU funding for smart mobility and logistics innovation", url: "https://ec.europa.eu/horizon-europe" },
+  ],
+  Biotech: [
+    { name: "BIRAC (India)", country: "India", amount: "Up to ₹3 Cr", desc: "Biotechnology Industry Research Assistance Council funding", url: "https://www.birac.org.in" },
+    { name: "NIH SBIR (US)", country: "US", amount: "$275K-$2M", desc: "National Institutes of Health biotech innovation grants", url: "https://www.nih.gov" },
+    { name: "Horizon Europe — Biotech", country: "EU", amount: "Up to €3M", desc: "EU funding for biotechnology and life sciences", url: "https://ec.europa.eu/horizon-europe" },
+  ],
+};
+
+const DEFAULT_SCHEMES = [
+  { name: "Startup India Seed Fund", country: "India", amount: "Up to ₹20 Lakh", desc: "Seed funding for eligible DPIIT-recognised startups", url: "https://www.startupindia.gov.in" },
+  { name: "SBIR Phase I/II (US)", country: "US", amount: "$150K-$1.5M", desc: "Small Business Innovation Research grants for technology R&D", url: "https://www.sbir.gov" },
+  { name: "Horizon Europe", country: "EU", amount: "Up to €2M", desc: "EU research and innovation funding programme", url: "https://ec.europa.eu/horizon-europe" },
+];
+
 const PERSONAS = [
   "VP of Engineering at a 200-person Series B SaaS",
   "CTO of an early-stage healthtech startup",
@@ -333,7 +433,7 @@ function genFromRealData(data, query, index, salt = "") {
     launchStrategy: "Beta waitlist → 5 design partners → Product Hunt + Show HN → paid plans at week 12.",
     monetization: "Land with self-serve seats. Expand with usage-based AI credits + premium evidence sources.",
     fundingPossibilities: ["Pre-seed: angels + " + industry + " operators", "Seed: vertical-focused funds", "Series A once $1M ARR + 130% NDR"],
-    governmentSchemes: ["Startup India Seed Fund", "SBIR (US) Phase I/II", "Horizon Europe innovation grants"],
+    governmentSchemes: (GOVERNMENT_SCHEMES[industry] || DEFAULT_SCHEMES).slice(0, 4),
     patentOpportunities: [`Novel ${topic} ingestion pipeline`, "Evidence-graph data structure", "Adaptive scoring algorithm"],
     expansionStrategy: "Adjacent industries → adjacent geographies → upmarket enterprise tier.",
     exitStrategy: "Strategic acquisition by a major " + industry + " platform within 5-7 years, or vertical IPO if NDR > 140%.",
@@ -491,7 +591,7 @@ function genFallback(query, index, salt = "") {
     launchStrategy: "Beta waitlist → Product Hunt → paid plans.",
     monetization: "Self-serve seats + AI credits.",
     fundingPossibilities: ["Pre-seed angels", "Seed vertical funds"],
-    governmentSchemes: ["Startup India Seed Fund", "SBIR Phase I/II"],
+    governmentSchemes: (GOVERNMENT_SCHEMES[industry] || DEFAULT_SCHEMES).slice(0, 3),
     patentOpportunities: [`${topic} ingestion pipeline`],
     expansionStrategy: "Adjacent industries → geographies → enterprise.",
     exitStrategy: "Strategic acquisition or vertical IPO.",

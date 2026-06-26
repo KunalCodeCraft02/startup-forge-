@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
   FiArrowLeft, FiBookmark, FiShare2, FiPrinter, FiFileText, FiCode, FiZap,
   FiTrendingUp, FiDollarSign, FiUsers, FiTarget, FiShield, FiCalendar, FiCheckCircle,
-  FiAward, FiGlobe, FiLayers, FiServer, FiDatabase, FiCpu, FiActivity,
+  FiAward, FiGlobe, FiLayers, FiServer, FiDatabase, FiCpu, FiActivity, FiExternalLink,
 } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { Pill, MetricBar, Stat } from "../components/Bits";
@@ -104,7 +104,7 @@ export default function IdeaDetails() {
 
       <div className="mt-6 sticky top-16 z-20 no-print">
         <div className="glass rounded-2xl p-1.5 inline-flex gap-1 overflow-x-auto no-scrollbar max-w-full">
-          {[["overview","Overview"],["market","Market"],["competition","Competition"],["tech","Tech & MVP"],["gtm","GTM & Funding"],["risks","Risks & SWOT"],["evidence","Evidence"],["plan","Business Plan"],["mvp","MVP Spec"]].map(([k, label]) => (
+          {[["overview","Overview"],["market","Market"],["competition","Competition"],["tech","Tech & MVP"],["gtm","GTM & Funding"],["govt","Govt Schemes"],["risks","Risks & SWOT"],["evidence","Evidence"],["plan","Business Plan"],["mvp","MVP Spec"]].map(([k, label]) => (
             <button key={k} onClick={() => setTab(k)} className={`rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 ${tab === k ? "bg-violet-100/60 text-violet-700 shadow-sm" : "text-slate-400 hover:text-slate-700"}`}>{label}</button>
           ))}
         </div>
@@ -117,6 +117,7 @@ export default function IdeaDetails() {
           {tab === "competition" && <CompetitionTab idea={idea} />}
           {tab === "tech" && <TechTab idea={idea} />}
           {tab === "gtm" && <GTMTab idea={idea} />}
+          {tab === "govt" && <GovernmentSchemesTab idea={idea} />}
           {tab === "risks" && <RisksTab idea={idea} />}
           {tab === "evidence" && <EvidenceTab idea={idea} />}
           {tab === "plan" && <BusinessPlanTab idea={idea} plan={plan} onGenerate={generatePlan} loading={planLoading} />}
@@ -125,6 +126,14 @@ export default function IdeaDetails() {
         <aside className="space-y-4">
           <AsideCard title="AI Recommendation" icon={<FiZap />}><p className="text-sm text-slate-600 leading-relaxed">{idea.aiRecommendation}</p><p className="text-xs text-slate-400 mt-2 leading-relaxed">{idea.founderAdvice}</p></AsideCard>
           <AsideCard title="Why now" icon={<FiActivity />}><p className="text-sm text-slate-600 leading-relaxed">{idea.whyNow}</p></AsideCard>
+          <AsideCard title="Govt Schemes" icon={<FiShield />}>
+            {idea.governmentSchemes && idea.governmentSchemes.length > 0 ? (
+              <><ul className="space-y-2">{idea.governmentSchemes.slice(0, 3).map((s, i) => <li key={i} className="text-xs text-slate-600"><span className="font-semibold">{s.name}</span><span className="text-slate-400"> — {s.amount}</span></li>)}</ul>
+              <button onClick={() => setTab("govt")} className="text-xs text-violet-500 hover:text-violet-700 mt-3 font-semibold">See all {idea.governmentSchemes.length} schemes →</button></>
+            ) : (
+              <p className="text-xs text-slate-400">No specific schemes for this category.</p>
+            )}
+          </AsideCard>
           <AsideCard title="Top evidence" icon={<FiFileText />}><EvidenceList items={idea.evidence.slice(0, 4)} /><button onClick={() => setTab("evidence")} className="text-xs text-violet-500 hover:text-violet-700 mt-3 font-semibold">See all {idea.evidence.length} signals →</button></AsideCard>
         </aside>
       </div>
@@ -159,7 +168,7 @@ function TechTab({ idea }) {
   return (<><Card title="Tech stack" icon={<FiLayers />}><div className="grid sm:grid-cols-2 gap-3"><KV k="Frontend" v={s.frontend} /><KV k="Backend" v={s.backend} /><KV k="Database" v={s.database} /><KV k="AI" v={s.ai} /><KV k="Infra" v={s.infra} /><KV k="Queue" v={s.queue} /></div></Card><Card title="Architecture" icon={<FiServer />}><ul className="space-y-2">{idea.architecture.map((a, i) => <li key={i} className="text-sm text-slate-600 flex gap-2.5"><FiCheckCircle className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />{a}</li>)}</ul></Card><Card title="Database" icon={<FiDatabase />}><pre className="text-xs text-violet-700 bg-violet-50/50 border border-violet-200/30 rounded-xl p-4 overflow-x-auto leading-relaxed">{idea.database.join("\n")}</pre></Card><Card title="APIs" icon={<FiCpu />}><ul className="space-y-2">{idea.apis.map((a, i) => <li key={i} className="text-sm text-slate-600 font-mono">{a}</li>)}</ul></Card><Card title="Timeline" icon={<FiCalendar />}><ul className="space-y-2.5">{idea.timeline.map((t, i) => <li key={i} className="flex gap-3 items-start"><Pill color="violet">{t.phase}</Pill><span className="text-sm text-slate-600">{t.work}</span></li>)}</ul></Card><Card title="Team & investment" icon={<FiUsers />}><div className="grid grid-cols-3 gap-3"><Stat label="Team size" value={idea.teamSize} /><Stat label="Est. cost" value={idea.estCost} /><Stat label="Investment" value={idea.investmentRequired} /></div><div className="mt-3 flex flex-wrap gap-1.5">{idea.requiredSkills.map((sk) => <Pill key={sk} color="blue">{sk}</Pill>)}</div></Card></>);
 }
 function GTMTab({ idea }) {
-  return (<><Card title="Acquisition channels" icon={<FiTarget />}><ul className="space-y-2">{idea.acquisitionChannels.map((c, i) => <li key={i} className="text-sm text-slate-600 flex gap-2.5"><span className="text-violet-400 mt-1">▸</span>{c}</li>)}</ul></Card><Card title="Marketing" icon={<FiTrendingUp />}><p className="text-sm text-slate-600 leading-relaxed">{idea.marketingStrategy}</p></Card><Card title="SEO" icon={<FiGlobe />}><p className="text-sm text-slate-600 leading-relaxed">{idea.seoStrategy}</p></Card><Card title="Sales" icon={<FiUsers />}><p className="text-sm text-slate-600 leading-relaxed">{idea.salesStrategy}</p></Card><Card title="Launch" icon={<FiZap />}><p className="text-sm text-slate-600 leading-relaxed">{idea.launchStrategy}</p></Card><Card title="Funding" icon={<FiAward />}><ul className="space-y-2">{idea.fundingPossibilities.map((f, i) => <li key={i} className="text-sm text-slate-600">· {f}</li>)}</ul></Card><Card title="Schemes & patents" icon={<FiShield />}><div className="grid sm:grid-cols-2 gap-4"><div><div className="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-1.5 font-semibold">Schemes</div><ul className="space-y-1.5">{idea.governmentSchemes.map((s, i) => <li key={i} className="text-sm text-slate-600">· {s}</li>)}</ul></div><div><div className="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-1.5 font-semibold">Patents</div><ul className="space-y-1.5">{idea.patentOpportunities.map((s, i) => <li key={i} className="text-sm text-slate-600">· {s}</li>)}</ul></div></div></Card></>);
+  return (<><Card title="Acquisition channels" icon={<FiTarget />}><ul className="space-y-2">{idea.acquisitionChannels.map((c, i) => <li key={i} className="text-sm text-slate-600 flex gap-2.5"><span className="text-violet-400 mt-1">▸</span>{c}</li>)}</ul></Card><Card title="Marketing" icon={<FiTrendingUp />}><p className="text-sm text-slate-600 leading-relaxed">{idea.marketingStrategy}</p></Card><Card title="SEO" icon={<FiGlobe />}><p className="text-sm text-slate-600 leading-relaxed">{idea.seoStrategy}</p></Card><Card title="Sales" icon={<FiUsers />}><p className="text-sm text-slate-600 leading-relaxed">{idea.salesStrategy}</p></Card><Card title="Launch" icon={<FiZap />}><p className="text-sm text-slate-600 leading-relaxed">{idea.launchStrategy}</p></Card><Card title="Funding" icon={<FiAward />}><ul className="space-y-2">{idea.fundingPossibilities.map((f, i) => <li key={i} className="text-sm text-slate-600">· {f}</li>)}</ul></Card><Card title="Government Schemes" icon={<FiShield />}><p className="text-sm text-slate-500 mb-2">View the dedicated <strong>Govt Schemes</strong> tab for detailed government funding opportunities with links and application steps.</p><div className="flex flex-wrap gap-1.5">{idea.governmentSchemes?.slice(0, 3).map((s, i) => <Pill key={i} color="emerald">{s.name}</Pill>)}</div></Card></>);
 }
 function RisksTab({ idea }) {
   const colors = { strengths: "green", weaknesses: "rose", opportunities: "violet", threats: "amber" };
@@ -176,4 +185,68 @@ function BusinessPlanTab({ idea, plan, onGenerate, loading }) {
 function MVPTab({ idea, mvp, onGenerate, loading }) {
   if (!mvp) return (<Card title="MVP Spec" icon={<FiCode />}><p className="text-sm text-slate-500 leading-relaxed">Generate a developer-ready MVP spec.</p><button onClick={onGenerate} disabled={loading} className="btn-primary mt-4 text-sm">{loading ? "Generating…" : "Generate MVP Spec"}</button></Card>);
   return (<><Card title="Core features" icon={<FiZap />}><ul className="space-y-2">{mvp.coreFeatures.map((f, i) => <li key={i} className="text-sm text-slate-600 flex gap-2.5"><FiCheckCircle className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />{f}</li>)}</ul></Card><Card title="Feature priority" icon={<FiTarget />}><ul className="space-y-2.5">{mvp.featurePriority.map((f, i) => <li key={i} className="flex items-start gap-3"><Pill color={f.priority === "P0" ? "rose" : f.priority === "P1" ? "amber" : "slate"}>{f.priority}</Pill><div><div className="text-sm text-slate-800 font-bold">{f.feature}</div><div className="text-xs text-slate-400 mt-0.5">{f.reason}</div></div></li>)}</ul></Card><Card title="Stack" icon={<FiLayers />}><div className="grid sm:grid-cols-2 gap-2">{Object.entries(mvp.recommendedStack).map(([k, v]) => <KV key={k} k={k} v={v} />)}</div></Card><Card title="Roadmap" icon={<FiCalendar />}><ul className="space-y-2">{mvp.roadmap.map((s, i) => <li key={i} className="text-sm text-slate-600">· {s}</li>)}</ul></Card></>);
+}
+
+function GovernmentSchemesTab({ idea }) {
+  const schemes = idea.governmentSchemes || [];
+  if (schemes.length === 0) {
+    return (
+      <Card title="Government Schemes & Funding" icon={<FiShield />}>
+        <p className="text-sm text-slate-500 leading-relaxed">No specific government schemes available for this idea. Check back later or explore other opportunities.</p>
+      </Card>
+    );
+  }
+
+  const countries = [...new Set(schemes.map(s => s.country))];
+
+  return (
+    <>
+      <Card title="Government Schemes & Funding Opportunities" icon={<FiShield />}>
+        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+          These government-backed schemes and funds are relevant to the <strong>{idea.industry}</strong> industry. 
+          Apply early — most have annual deadlines and competitive selection processes.
+        </p>
+        <div className="space-y-3">
+          {schemes.map((scheme, i) => (
+            <div key={i} className="glass rounded-xl p-4 hover:shadow-md transition-shadow">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h4 className="text-sm font-bold text-slate-800">{scheme.name}</h4>
+                    <Pill color="blue">{scheme.country}</Pill>
+                    <Pill color="emerald">{scheme.amount}</Pill>
+                  </div>
+                  <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">{scheme.desc}</p>
+                </div>
+                {scheme.url && (
+                  <a href={scheme.url} target="_blank" rel="noopener noreferrer"
+                     className="shrink-0 rounded-lg border border-slate-200/60 p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50/40 transition-all">
+                    <FiExternalLink className="h-4 w-4" />
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+      <Card title="How to Apply" icon={<FiTarget />}>
+        <ul className="space-y-2.5 text-sm text-slate-600">
+          <li className="flex items-start gap-2.5"><FiCheckCircle className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /><strong>Step 1:</strong> Register on the respective government portal (Startup India, SBIR, etc.)</li>
+          <li className="flex items-start gap-2.5"><FiCheckCircle className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /><strong>Step 2:</strong> Prepare your business plan, pitch deck, and financial projections</li>
+          <li className="flex items-start gap-2.5"><FiCheckCircle className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /><strong>Step 3:</strong> Submit application before the deadline (most have quarterly cycles)</li>
+          <li className="flex items-start gap-2.5"><FiCheckCircle className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /><strong>Step 4:</strong> Attend interviews/presentations if shortlisted</li>
+          <li className="flex items-start gap-2.5"><FiCheckCircle className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" /><strong>Step 5:</strong> Use funds for R&D, hiring, and market validation per guidelines</li>
+        </ul>
+      </Card>
+      <Card title="Tips for Government Grants" icon={<FiZap />}>
+        <ul className="space-y-2 text-sm text-slate-600">
+          <li>· Focus on solving a real problem backed by your evidence data</li>
+          <li>· Highlight job creation potential and economic impact</li>
+          <li>· Show clear IP ownership and innovation novelty</li>
+          <li>· Demonstrate scalability and market traction</li>
+          <li>· Many schemes require DPIIT recognition — get it early via Startup India</li>
+        </ul>
+      </Card>
+    </>
+  );
 }

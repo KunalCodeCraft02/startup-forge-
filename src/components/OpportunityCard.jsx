@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Pill, MetricBar } from "./Bits";
-import { FiBookmark, FiTrendingUp, FiZap, FiClock, FiDollarSign, FiCalendar, FiGlobe } from "react-icons/fi";
+import { FiBookmark, FiTrendingUp, FiZap, FiClock, FiDollarSign, FiCalendar, FiGlobe, FiShield } from "react-icons/fi";
 import { useApp } from "../context/AppContext";
 import toast from "react-hot-toast";
 
@@ -26,6 +26,9 @@ export default function OpportunityCard({ idea, compact = false }) {
               <div className="flex items-center gap-2 mb-2">
                 <Pill color="violet">{idea.industry}</Pill>
                 {isRealData && <Pill color="green"><FiGlobe className="h-3 w-3" /> Live</Pill>}
+                {idea.governmentSchemes && idea.governmentSchemes.length > 0 && (
+                  <Pill color="emerald"><FiShield className="h-3 w-3" /> Govt Schemes</Pill>
+                )}
                 <Pill color="slate">
                   <FiCalendar className="h-3 w-3" />
                   {new Date(idea.generatedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}

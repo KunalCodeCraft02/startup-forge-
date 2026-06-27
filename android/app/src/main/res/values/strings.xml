@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Startup Forge</string>
+    <string name="title_activity_main">Startup Forge</string>
+    <string name="package_name">com.kunal.startupforge</string>
+    <string name="custom_url_scheme">com.kunal.startupforge</string>
+</resources>
